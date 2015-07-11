@@ -10,7 +10,6 @@
 		method assertEquals(expected, actual) native
 	}
 	
-	
 	class WObject {
 		method identity() native
 		

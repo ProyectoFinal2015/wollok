@@ -24,6 +24,7 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xs
 		<module>../org.uqbar.project.wollok.sdk</module>
 		<module>../org.uqbar.project.wollok.updatesite</module>
 		<module>../org.uqbar.project.wollok.product</module>
+		<module>../org.uqbar.project.wollok.game</module>
 		<module>assemble-product</module>
 	</modules>
 
@@ -101,7 +102,7 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xs
 	 </pluginRepository>
 	 <!-- /XSemantics -->
 	</pluginRepositories>
-	
+		
 	<build>
 		<pluginManagement>
 			<plugins>
@@ -226,13 +227,13 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xs
 				<artifactId>tycho-maven-plugin</artifactId>
 				<version>${tycho-version}</version>
 				<extensions>true</extensions>
-			</plugin>
+			</plugin>		
 			<plugin>
 				<groupId>org.eclipse.tycho</groupId>
 				<artifactId>target-platform-configuration</artifactId>
 				<version>${tycho-version}</version>
 				<configuration>
-					<resolver>p2</resolver>
+					<pomDependencies>consider</pomDependencies>
 					<!-- pomDependencies>consider</pomDependencies -->
 					<environments>
 						<environment>
