@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="xtend-gen"/>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7"/>
+	<classpathentry kind="con" path="org.eclipse.pde.core.requiredPlugins"/>
+	<classpathentry exported="true" kind="lib" path="target/dependency/gdx-1.6.0.jar"/>
+	<classpathentry exported="true" kind="lib" path="target/dependency/gdx-backend-lwjgl-1.6.0.jar"/>
+	<classpathentry exported="true" kind="lib" path="target/dependency/gdx-platform-1.6.0-natives-desktop.jar"/>
+	<classpathentry exported="true" kind="lib" path="target/dependency/jinput-2.0.5.jar"/>
+	<classpathentry exported="true" kind="lib" path="target/dependency/jinput-platform-2.0.5-natives-linux.jar"/>
+	<classpathentry exported="true" kind="lib" path="target/dependency/jinput-platform-2.0.5-natives-osx.jar"/>
+	<classpathentry exported="true" kind="lib" path="target/dependency/jinput-platform-2.0.5-natives-windows.jar"/>
+	<classpathentry exported="true" kind="lib" path="target/dependency/jlayer-1.0.1-gdx.jar"/>
+	<classpathentry exported="true" kind="lib" path="target/dependency/jorbis-0.0.17.jar"/>
+	<classpathentry exported="true" kind="lib" path="target/dependency/jutils-1.0.0.jar"/>
+	<classpathentry exported="true" kind="lib" path="target/dependency/lwjgl_util-2.9.2.jar"/>
+	<classpathentry exported="true" kind="lib" path="target/dependency/lwjgl-2.9.2.jar"/>
+	<classpathentry exported="true" kind="lib" path="target/dependency/lwjgl-platform-2.9.2-natives-linux.jar"/>
+	<classpathentry exported="true" kind="lib" path="target/dependency/lwjgl-platform-2.9.2-natives-osx.jar"/>
+	<classpathentry exported="true" kind="lib" path="target/dependency/lwjgl-platform-2.9.2-natives-windows.jar"/>
+	<classpathentry excluding="**/*.java" kind="src" path="assets"/>
+	<classpathentry kind="output" path="target/classes"/>
+</classpath>
