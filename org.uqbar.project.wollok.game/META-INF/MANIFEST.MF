@@ -24,4 +24,4 @@ Bundle-ClassPath: .,
  target/dependency/lwjgl-platform-2.9.2-natives-osx.jar,
  target/dependency/lwjgl-platform-2.9.2-natives-windows.jar
 Export-Package: .,
- org.uqbar.project.wollok.game
+ org.uqbar.project.wollok.game.gameboard
