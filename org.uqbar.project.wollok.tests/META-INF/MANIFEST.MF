@@ -19,13 +19,17 @@ Require-Bundle: org.uqbar.project.wollok;visibility:=reexport,
  org.uqbar.project.wollok.lib,
  org.uqbar.project.wollok.typeSystem.xsemantics,
  org.uqbar.project.wollok.ui
-Import-Package: org.apache.log4j,
+Import-Package: com.badlogic.gdx,
+ org.apache.log4j,
+ org.hamcrest.core,
  org.junit;version="4.5.0",
  org.junit.runner;version="4.5.0",
  org.junit.runner.manipulation;version="4.5.0",
  org.junit.runner.notification;version="4.5.0",
  org.junit.runners;version="4.5.0",
  org.junit.runners.model;version="4.5.0",
- org.hamcrest.core
+ org.uqbar.project.wollok.game,
+ org.uqbar.project.wollok.game.gameboard,
+ org.uqbar.project.wollok.game.listeners
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Export-Package: org.uqbar.project.wollok
