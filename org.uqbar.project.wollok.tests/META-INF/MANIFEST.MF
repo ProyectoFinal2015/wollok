@@ -4,7 +4,8 @@ Bundle-Name: %pluginName
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
 Bundle-Version: 1.0.0.qualifier
-Bundle-ClassPath: .
+Bundle-ClassPath: .,
+ target/dependency/mockito-core-2.0.31-beta.jar
 Bundle-SymbolicName: org.uqbar.project.wollok.tests;singleton:=true
 Bundle-ActivationPolicy: lazy
 Require-Bundle: org.uqbar.project.wollok;visibility:=reexport,
@@ -19,8 +20,7 @@ Require-Bundle: org.uqbar.project.wollok;visibility:=reexport,
  org.uqbar.project.wollok.lib,
  org.uqbar.project.wollok.typeSystem.xsemantics,
  org.uqbar.project.wollok.ui
-Import-Package: com.badlogic.gdx,
- org.apache.log4j,
+Import-Package: org.apache.log4j,
  org.hamcrest.core,
  org.junit;version="4.5.0",
  org.junit.runner;version="4.5.0",
