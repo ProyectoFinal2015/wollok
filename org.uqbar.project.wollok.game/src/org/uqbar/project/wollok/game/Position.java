@@ -57,4 +57,10 @@ public class Position {
 		this.y = y;
 	}
 	
+	public void incX(int spaces){
+		this.x = this.x + spaces;
+	}
+	public void incY(int spaces){
+		this.y = this.y + spaces;
+	}	
 }

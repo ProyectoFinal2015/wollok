@@ -7,6 +7,7 @@ import org.w3c.dom.Document
 import org.w3c.dom.Element
 import org.w3c.dom.Node
 import org.w3c.dom.NodeList
+import org.uqbar.project.wollok.game.listeners.ArrowListener
 
 class GameFactory {
 
@@ -31,6 +32,9 @@ class GameFactory {
 					gameboard.setCantCellX(Integer.parseInt(parseNode(eElement, "gameboardWidth")))
 					gameboard.setCantCellY(Integer.parseInt(parseNode(eElement, "gameboardHeight")))
 					gameboard.getCharacterVisualcomponent().image = parseNode(eElement, "imageCharacter")
+					gameboard.createCells(parseNode(eElement, "imageGround"))
+					//if (parseNode(eElement,"arrowListener").equals("1"))
+						gameboard.addListener(new ArrowListener(gameboard))
 					//<imageCharacter>sokoban.jpg</imageCharacter>
 				}
 			}

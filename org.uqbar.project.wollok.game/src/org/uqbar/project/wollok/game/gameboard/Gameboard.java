@@ -17,35 +17,40 @@ import com.google.common.base.Predicate;
 import com.google.common.collect.Collections2;
 
 public class Gameboard {
-	
-	public static final int CELLZISE = 50;
+
+	public static final int CELLZISE = 32;
 	private String tittle;
 	private int cantCellX;
 	private int cantCellY;
+	private float keyboardCounter;
+	private boolean marca;
 	private List<Cell> cells = new ArrayList<Cell>();
 	private VisualComponent character;
 	private List<GameboardListener> listeners = new ArrayList<GameboardListener>();
 	private List<VisualComponent> components = new ArrayList<VisualComponent>();
-	
-	public Gameboard(){
+
+	public Gameboard() {
+		marca = false;
+		keyboardCounter = 0;
 		this.character = new VisualComponent();
-		this.character.setMyPosition(new Position(1,1));
+		this.character.setMyPosition(new Position(1, 1));
 		GameFactory factory = new GameFactory();
 		factory.setGame(this);
 	}
-	
-	private void createCells() {
+
+	public void createCells(String groundImage) {
 		for (int i = 0; i < cantCellX; i++) {
 			for (int j = 0; j < cantCellY; j++) {
-				cells.add(new Cell(i*CELLZISE, j*CELLZISE));
+				cells.add(new Cell(i * CELLZISE, j * CELLZISE, groundImage));
 			}
 		}
 	}
 
 	public void start() {
-		new LwjglApplication(new GameboardRendering(this), new GameboardConfiguration(this));
+		new LwjglApplication(new GameboardRendering(this),
+				new GameboardConfiguration(this));
 	}
-	
+
 	public int height() {
 		return getCantCellY() * CELLZISE;
 	}
@@ -53,32 +58,50 @@ public class Gameboard {
 	public int width() {
 		return getCantCellX() * CELLZISE;
 	}
-	
+
 	public boolean isKeyPressed(int key) {
-		return Gdx.input.isKeyPressed(key);
+		if (!marca){
+			marca = Gdx.input.isKeyPressed(key);
+			this.keyboardCounter = 0;
+			}
+		else {
+			this.keyboardCounter += Gdx.graphics.getDeltaTime();
+			if (this.keyboardCounter > 0.39f) {
+				marca = Gdx.input.isKeyPressed(key);
+				if (marca)
+					this.keyboardCounter = 0;
+			}
+			else {
+				return false;
+			}
+		}
+			
+		return marca;
 	}
-	
+
 	public void addComponent(VisualComponent component) {
 		this.components.add(component);
 	}
-	
-	public Collection<VisualComponent> getComponentsInPosition(Position myPosition) {
+
+	public Collection<VisualComponent> getComponentsInPosition(
+			Position myPosition) {
 		return Collections2.filter(components, new IsEqualPosition(myPosition));
 	}
-	
+
 	// Getters & Setters
-	
-	public void setCharacterWollokObject(Object aCharacter){
+
+	public void setCharacterWollokObject(Object aCharacter) {
 		this.character.setMyDomainObject(aCharacter);
 	}
-	public VisualComponent getCharacterVisualcomponent(){
+
+	public VisualComponent getCharacterVisualcomponent() {
 		return this.character;
 	}
-	
+
 	public String getTittle() {
 		return tittle;
 	}
-	
+
 	public List<Cell> getCells() {
 		return cells;
 	}
@@ -86,11 +109,17 @@ public class Gameboard {
 	public List<GameboardListener> getListeners() {
 		return listeners;
 	}
-	
+
 	public List<VisualComponent> getComponents() {
 		return this.components;
 	}
 
+	public void serListeners(List<GameboardListener> aList){
+		this.listeners = aList;
+	}
+	public void addListener(GameboardListener aListener){
+		this.listeners.add(aListener);
+	}
 	public void setComponents(List<VisualComponent> components) {
 		this.components = components;
 	}
@@ -105,7 +134,6 @@ public class Gameboard {
 
 	public void setCantCellX(int cantCellX) {
 		this.cantCellX = cantCellX;
-		this.createCells();
 	}
 
 	public int getCantCellY() {
@@ -114,27 +142,28 @@ public class Gameboard {
 
 	public void setCantCellY(int cantCellY) {
 		this.cantCellY = cantCellY;
-		this.createCells();
 	}
-	
-	private class IsEqualPosition implements Predicate<VisualComponent>{
+
+	private class IsEqualPosition implements Predicate<VisualComponent> {
 
 		private Position myPosition;
+
 		public IsEqualPosition(Position p) {
 			this.myPosition = p;
 		}
+
 		@Override
 		public boolean apply(VisualComponent it) {
 			return it.getMyPosition().equals(myPosition);
 		}
-		
+
 	}
 
 	private static Gameboard instance;
+
 	public static Gameboard getInstance() {
-	  if(instance == null)
-		  instance = new Gameboard();
-	  return instance;
+		if (instance == null)
+			instance = new Gameboard();
+		return instance;
 	}
 }
-

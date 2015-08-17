@@ -5,5 +5,7 @@
 		<gameboardHeight>5</gameboardHeight>
 		<gameboardWidth>5</gameboardWidth>
 		<imageCharacter>jugador.png</imageCharacter>
+		<imageGround>flying_bird.png</imageGround>
+		<arrowListener>1</arrowListener>
 	</configuration>
 </setup>

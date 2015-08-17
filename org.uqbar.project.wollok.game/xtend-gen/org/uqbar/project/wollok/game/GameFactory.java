@@ -6,6 +6,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import org.eclipse.xtext.xbase.lib.Exceptions;
 import org.uqbar.project.wollok.game.VisualComponent;
 import org.uqbar.project.wollok.game.gameboard.Gameboard;
+import org.uqbar.project.wollok.game.listeners.ArrowListener;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -44,6 +45,10 @@ public class GameFactory {
             VisualComponent _characterVisualcomponent = this.gameboard.getCharacterVisualcomponent();
             String _parseNode_3 = this.parseNode(eElement, "imageCharacter");
             _characterVisualcomponent.setImage(_parseNode_3);
+            String _parseNode_4 = this.parseNode(eElement, "imageGround");
+            this.gameboard.createCells(_parseNode_4);
+            ArrowListener _arrowListener = new ArrowListener(this.gameboard);
+            this.gameboard.addListener(_arrowListener);
           }
         }
       }
