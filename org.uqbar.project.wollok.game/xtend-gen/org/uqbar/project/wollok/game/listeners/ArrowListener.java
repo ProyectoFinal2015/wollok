@@ -14,8 +14,6 @@ import org.uqbar.project.wollok.game.listeners.GameboardListener;
 public class ArrowListener implements GameboardListener {
   private HashMap<Integer, Runnable> diccionario = new HashMap<Integer, Runnable>();
   
-  private int keyPressed = 0;
-  
   public ArrowListener(final Gameboard aGameboard) {
     final Runnable _function = new Runnable() {
       public void run() {
@@ -53,10 +51,10 @@ public class ArrowListener implements GameboardListener {
   
   public void notify(final Gameboard gameboard) {
     Set<Map.Entry<Integer, Runnable>> _entrySet = this.diccionario.entrySet();
-    Iterator it = _entrySet.iterator();
+    Iterator<Map.Entry<Integer, Runnable>> it = _entrySet.iterator();
     while (it.hasNext()) {
       {
-        Object _next = it.next();
+        Map.Entry<Integer, Runnable> _next = it.next();
         Map.Entry<Integer, Runnable> pair = ((Map.Entry<Integer, Runnable>) _next);
         Integer _key = pair.getKey();
         int _intValue = _key.intValue();

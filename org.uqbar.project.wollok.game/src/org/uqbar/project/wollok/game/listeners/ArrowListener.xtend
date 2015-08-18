@@ -9,7 +9,6 @@ import org.uqbar.project.wollok.game.gameboard.Gameboard
 class ArrowListener implements GameboardListener {
 	
 	var diccionario = new HashMap<Integer, Runnable>()
-	var keyPressed = 0
 	
 	new(Gameboard aGameboard){
 		diccionario.put(Keys.UP,[|aGameboard.characterVisualcomponent.myPosition.incY(1)])
@@ -19,7 +18,7 @@ class ArrowListener implements GameboardListener {
 	}
 	
 	override notify(Gameboard gameboard) {
-    var Iterator it = diccionario.entrySet().iterator();
+    var Iterator<Map.Entry<Integer, Runnable>> it = diccionario.entrySet().iterator();
     while (it.hasNext()){
     	var Map.Entry<Integer,Runnable> pair = it.next() as Map.Entry<Integer,Runnable>;
 		if (gameboard.isKeyPressed(pair.key.intValue))

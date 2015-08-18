@@ -4,14 +4,12 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import org.uqbar.project.wollok.game.GameConfiguration;
 import org.uqbar.project.wollok.game.GameFactory;
 import org.uqbar.project.wollok.game.Position;
 import org.uqbar.project.wollok.game.VisualComponent;
 import org.uqbar.project.wollok.game.listeners.GameboardListener;
-import org.uqbar.project.wollok.interpreter.core.WollokObject;
-
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.google.common.base.Predicate;
 import com.google.common.collect.Collections2;
@@ -19,9 +17,7 @@ import com.google.common.collect.Collections2;
 public class Gameboard {
 
 	public static final int CELLZISE = 32;
-	private String tittle;
-	private int cantCellX;
-	private int cantCellY;
+	private GameConfiguration configuration;
 	private float keyboardCounter;
 	private boolean marca;
 	private List<Cell> cells = new ArrayList<Cell>();
@@ -39,8 +35,8 @@ public class Gameboard {
 	}
 
 	public void createCells(String groundImage) {
-		for (int i = 0; i < cantCellX; i++) {
-			for (int j = 0; j < cantCellY; j++) {
+		for (int i = 0; i < configuration.getGameboardWidth(); i++) {
+			for (int j = 0; j < configuration.getGameboardHeight(); j++) {
 				cells.add(new Cell(i * CELLZISE, j * CELLZISE, groundImage));
 			}
 		}
@@ -99,7 +95,7 @@ public class Gameboard {
 	}
 
 	public String getTittle() {
-		return tittle;
+		return configuration.getGameboardTitle();
 	}
 
 	public List<Cell> getCells() {
@@ -124,24 +120,12 @@ public class Gameboard {
 		this.components = components;
 	}
 
-	public void setTittle(String tittle) {
-		this.tittle = tittle;
-	}
-
 	public int getCantCellX() {
-		return cantCellX;
-	}
-
-	public void setCantCellX(int cantCellX) {
-		this.cantCellX = cantCellX;
+		return configuration.getGameboardWidth();
 	}
 
 	public int getCantCellY() {
-		return cantCellY;
-	}
-
-	public void setCantCellY(int cantCellY) {
-		this.cantCellY = cantCellY;
+		return configuration.getGameboardHeight();
 	}
 
 	private class IsEqualPosition implements Predicate<VisualComponent> {
@@ -165,5 +149,13 @@ public class Gameboard {
 		if (instance == null)
 			instance = new Gameboard();
 		return instance;
+	}
+
+	public GameConfiguration getConfiguration() {
+		return configuration;
+	}
+
+	public void setConfiguration(GameConfiguration configuration) {
+		this.configuration = configuration;
 	}
 }
