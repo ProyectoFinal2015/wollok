@@ -3,12 +3,16 @@ package org.uqbar.project.wollok.game;
 import org.uqbar.project.wollok.game.Position;
 import org.uqbar.project.wollok.interpreter.core.WollokObject;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Texture;
+
 public class VisualComponent {
 
 	private Position position;
 	private String image;
 	// En realidad es un WollokObject pero lo debo tratar como object generalmente...WTF!
 	private Object domainObject;
+	private Texture texture;
 	
 	public VisualComponent() { }
 	
@@ -37,5 +41,10 @@ public class VisualComponent {
 		this.domainObject = myDomainObject;
 	}
 	
+	public Texture getTexture(){
+		if(this.texture == null)
+			return this.texture = this.texture = new Texture(Gdx.files.internal(image));
+		return this.texture;
+	}
 	
 }

@@ -43,6 +43,10 @@ public class GameboardRendering implements ApplicationListener {
 			this.draw(cell);
 		}
 		
+		for (VisualComponent component : gameboard.components) {
+			this.draw(component);
+		}
+		
 		this.draw(gameboard.getCharacter());
 		
 		batch.end();
@@ -54,13 +58,13 @@ public class GameboardRendering implements ApplicationListener {
 	}
 	
 	private void draw(Cell cell) {
-		Texture texture = new Texture(Gdx.files.internal(cell.getElement()));
+		Texture texture = cell.getTexture();
 		texture.setFilter(TextureFilter.Linear, TextureFilter.Linear);
 		batch.draw(texture, cell.getWidth(), cell.getHeight());
 	}
 	
 	private void draw(VisualComponent aComponent){
-		Texture texture = new Texture(Gdx.files.internal(aComponent.getImage()));
+		Texture texture = aComponent.getTexture();
 		texture.setFilter(TextureFilter.Linear, TextureFilter.Linear);
 		batch.draw(texture, aComponent.getMyPosition().getXinPixels(), aComponent.getMyPosition().getYinPixels());
 	}

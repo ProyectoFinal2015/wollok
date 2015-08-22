@@ -8,6 +8,8 @@ import org.uqbar.project.wollok.game.Position
 import org.uqbar.project.wollok.interpreter.nativeobj.collections.WollokList
 import org.uqbar.project.wollok.interpreter.WollokInterpreter
 import org.uqbar.project.wollok.interpreter.core.WollokObject
+import org.uqbar.project.wollok.game.VisualComponent
+import java.io.Console
 
 class WgameObject extends AbstractWollokDeclarativeNativeObject {
 	
@@ -51,12 +53,19 @@ class WgameObject extends AbstractWollokDeclarativeNativeObject {
 		Gameboard.getInstance().setCharacterWollokObject(wollokObject)
 	}
 	
-//	@NativeMessage("addObject")
-//	def addObjectMethod(WollokObject wollokObject) {
-//		var position = new Position(posX.wrapped, posY.wrapped)
-//		var visualComponent = new VisualComponent(wollokObject, image, position)
-//		Gameboard.getInstance().addComponent(visualComponent)
-//	}
+	@NativeMessage("addObject")
+	def addObjectMethod(Object object) {
+		
+		var wollokObject = WollokObject.cast(object)
+		
+		var x = WollokInteger.cast(wollokObject.call("getX")).wrapped
+		var y = WollokInteger.cast(wollokObject.call("getY")).wrapped
+		
+		var gamePosition = new Position(x, y)
+		var visualComponent = new VisualComponent(wollokObject, "caja.png", gamePosition)
+		
+		Gameboard.getInstance().addComponent(visualComponent)
+	}
 	
 	@NativeMessage("getObjectsIn")
 	def getObjectsInMethod(WollokInteger posX, WollokInteger posY) {

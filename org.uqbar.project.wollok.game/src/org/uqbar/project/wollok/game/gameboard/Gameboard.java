@@ -31,7 +31,7 @@ public class Gameboard {
 	}
 
 	private List<GameboardListener> listeners = new ArrayList<GameboardListener>();
-	private List<VisualComponent> components = new ArrayList<VisualComponent>();
+	public List<VisualComponent> components = new ArrayList<VisualComponent>();
 
 	public Gameboard() {
 		marca = false;

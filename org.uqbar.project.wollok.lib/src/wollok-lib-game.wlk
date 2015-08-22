@@ -8,7 +8,7 @@ object wgame{
 		method setHeight(cant) native
 		method getHeight() native
 		method addCharacter(wollokObject) native
-		method addObject(wollokObject, image, posX, posY) native
+		method addObject(wollokObject) native
 		method getObjectsIn(posX, posY) native
 	}
 
