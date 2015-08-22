@@ -43,7 +43,7 @@ public class VisualComponent {
 	
 	public Texture getTexture(){
 		if(this.texture == null)
-			return this.texture = this.texture = new Texture(Gdx.files.internal(image));
+			return this.texture = new Texture(Gdx.files.internal(image));
 		return this.texture;
 	}
 	
