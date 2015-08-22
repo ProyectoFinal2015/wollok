@@ -9,6 +9,7 @@ import org.uqbar.project.wollok.game.Position;
 import org.uqbar.project.wollok.game.VisualComponent;
 import org.uqbar.project.wollok.game.gameboard.Gameboard;
 import org.uqbar.project.wollok.game.listeners.ArrowListener;
+import org.uqbar.project.wollok.game.listeners.GameboardListener;
 
 @Accessors
 @SuppressWarnings("all")
@@ -26,6 +27,8 @@ public class GameConfiguration {
   private boolean arrowListener;
   
   private List<Component> components;
+  
+  private List<GameboardListener> listeners = new ArrayList<GameboardListener>();
   
   public GameConfiguration() {
     ArrayList<Component> _arrayList = new ArrayList<Component>();
@@ -49,6 +52,10 @@ public class GameConfiguration {
     _character.setMyPosition(_position);
     VisualComponent _character_1 = aBoard.getCharacter();
     _character_1.setImage(this.imageCharacter);
+  }
+  
+  public boolean addListener(final GameboardListener aListener) {
+    return this.listeners.add(aListener);
   }
   
   @Pure
@@ -112,5 +119,14 @@ public class GameConfiguration {
   
   public void setComponents(final List<Component> components) {
     this.components = components;
+  }
+  
+  @Pure
+  public List<GameboardListener> getListeners() {
+    return this.listeners;
+  }
+  
+  public void setListeners(final List<GameboardListener> listeners) {
+    this.listeners = listeners;
   }
 }

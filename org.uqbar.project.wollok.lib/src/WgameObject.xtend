@@ -9,7 +9,8 @@ import org.uqbar.project.wollok.interpreter.nativeobj.collections.WollokList
 import org.uqbar.project.wollok.interpreter.WollokInterpreter
 import org.uqbar.project.wollok.interpreter.core.WollokObject
 import org.uqbar.project.wollok.game.VisualComponent
-import java.io.Console
+import org.uqbar.project.wollok.interpreter.core.WollokClosure
+import org.uqbar.project.wollok.game.listeners.KeyboardListener
 
 class WgameObject extends AbstractWollokDeclarativeNativeObject {
 	
@@ -65,6 +66,12 @@ class WgameObject extends AbstractWollokDeclarativeNativeObject {
 		var visualComponent = new VisualComponent(wollokObject, "caja.png", gamePosition)
 		
 		Gameboard.getInstance().addComponent(visualComponent)
+	}
+	
+	@NativeMessage("addKeyboardListener")
+	def addKeyboardListenerMethod(WollokClosure action) {
+		var listener = new KeyboardListener(46, [| action.apply()])
+		Gameboard.getInstance().addListener(listener)
 	}
 	
 	@NativeMessage("getObjectsIn")

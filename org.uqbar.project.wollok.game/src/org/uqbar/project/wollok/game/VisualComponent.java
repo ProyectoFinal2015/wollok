@@ -47,4 +47,7 @@ public class VisualComponent {
 		return this.texture;
 	}
 	
+	public void sendMessage(String message){
+		WollokObject.class.cast(this.domainObject).call(message);
+	}
 }
