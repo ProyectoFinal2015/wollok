@@ -4,7 +4,7 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xs
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.uqbar-project</groupId>
 	<artifactId>wollok-parent</artifactId>
-	<version>1.0.0-SNAPSHOT</version>
+	<version>1.1.0-SNAPSHOT</version>
 	<packaging>pom</packaging>
 	<name>Wollok Parent (Releng)</name>
 	<url>https://github.com/uqbar-project/wollok</url>
@@ -22,10 +22,9 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xs
 		<module>../org.uqbar.project.wollok.typeSystem.xsemantics.ui</module>
 		<module>../org.uqbar.project.wollok.tests</module>
 		<module>../org.uqbar.project.wollok.sdk</module>
-		<module>../org.uqbar.project.wollok.updatesite</module>
 		<module>../org.uqbar.project.wollok.product</module>
 		<module>../org.uqbar.project.wollok.game</module>
-		<module>assemble-product</module>
+		<module>../org.uqbar.project.wollok.updatesite</module>
 	</modules>
 
 	<properties>
@@ -218,6 +217,35 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xs
 				</plugin>
 				
 				<!-- /site -->
+				<!--This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven build itself.-->
+				<plugin>
+					<groupId>org.eclipse.m2e</groupId>
+					<artifactId>lifecycle-mapping</artifactId>
+					<version>1.0.0</version>
+					<configuration>
+						<lifecycleMappingMetadata>
+							<pluginExecutions>
+								<pluginExecution>
+									<pluginExecutionFilter>
+										<groupId>org.jacoco</groupId>
+										<artifactId>
+											jacoco-maven-plugin
+										</artifactId>
+										<versionRange>
+											[0.7.2.201409121644,)
+										</versionRange>
+										<goals>
+											<goal>prepare-agent</goal>
+										</goals>
+									</pluginExecutionFilter>
+									<action>
+										<ignore></ignore>
+									</action>
+								</pluginExecution>
+							</pluginExecutions>
+						</lifecycleMappingMetadata>
+					</configuration>
+				</plugin>
 			</plugins>
 		</pluginManagement>
 
@@ -271,12 +299,54 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xs
 						<artifact>
 							<groupId>org.uqbar-project</groupId>
 							<artifactId>org.uqbar.project.wollok.targetplatform</artifactId>
-							<version>1.0.0-SNAPSHOT</version>
+							<version>1.1.0-SNAPSHOT</version>
 						</artifact>
 					</target>
 				</configuration>
 			</plugin>
+			
+			<!-- code coverage -->
+			<plugin>
+			    <groupId>org.jacoco</groupId>
+			    <artifactId>jacoco-maven-plugin</artifactId>
+			    <version>0.7.2.201409121644</version>
+			    <executions>
+			        <execution>
+			            <id>prepare-agent</id>
+			            <goals>
+			                <goal>prepare-agent</goal>
+			            </goals>
+			        </execution>
+			    </executions>
+			</plugin>
+	        <plugin>
+	            <groupId>org.eluder.coveralls</groupId>
+	            <artifactId>coveralls-maven-plugin</artifactId>
+	             <version>3.0.1</version>
+	
+	            <configuration>
+	                <coberturaReports>
+	                    <coberturaReport>
+	                        ${basedir}/target/coverage.xml
+	                    </coberturaReport>
+	                </coberturaReports>
+	                <sourceEncoding>UTF-8</sourceEncoding>
+	                <serviceName>travis-ci</serviceName>
+	                <serviceJobId>${env.TRAVIS_JOB_ID} </serviceJobId>
+	            </configuration>
+	        </plugin>
+	        <!-- code coverage -->
+	        
 		</plugins>
+		
+		<extensions>
+			<extension>
+				<groupId>org.apache.maven.wagon</groupId>
+				<artifactId>wagon-ftp</artifactId>
+				<version>1.0-beta-6</version>
+			</extension>
+		</extensions>
+		
 	</build>
 
 	<reporting>
