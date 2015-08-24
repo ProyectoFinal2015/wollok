@@ -7,9 +7,9 @@ object wgame{
 		method getWidth() native
 		method setHeight(cant) native
 		method getHeight() native
-		method addCharacter(wollokObject) native
+		method addCharacter(wollokObject, attribute) native
 		method addObject(wollokObject) native
-		method agregarObjeto(wollokObject) native
+		method agregarObjeto(wollokObject, attribute) native
 		method alPresionarHacer(key, action) native
 		method agregarPersonaje(object) native
 		method getObjectsIn(posX, posY) native

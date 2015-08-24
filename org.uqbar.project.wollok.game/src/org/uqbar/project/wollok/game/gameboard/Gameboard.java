@@ -55,7 +55,7 @@ public class Gameboard {
 
 	public boolean isKeyPressed(int key) {
 		if (!marca){
-			marca = Gdx.input.isKeyPressed(key);
+			marca = Gdx.input.isKeyJustPressed(key);
 			this.keyboardCounter = 0;
 			}
 		else {

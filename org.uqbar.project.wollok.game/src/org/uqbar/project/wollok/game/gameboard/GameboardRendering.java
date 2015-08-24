@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.Texture.TextureFilter;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class GameboardRendering implements ApplicationListener {
@@ -16,6 +17,7 @@ public class GameboardRendering implements ApplicationListener {
 	private Gameboard gameboard;
 	private OrthographicCamera camera;
 	private SpriteBatch batch;
+	private BitmapFont font;
 
 	public GameboardRendering(Gameboard gameboard) {
 		this.gameboard = gameboard;
@@ -26,6 +28,7 @@ public class GameboardRendering implements ApplicationListener {
 		camera = new OrthographicCamera(0, 0);
 		camera.setToOrtho(false, gameboard.width(), gameboard.height());
 		batch = new SpriteBatch();
+		font = new BitmapFont();
 	}
 
 	@Override
@@ -63,10 +66,8 @@ public class GameboardRendering implements ApplicationListener {
 		batch.draw(texture, cell.getWidth(), cell.getHeight());
 	}
 	
-	private void draw(VisualComponent aComponent){
-		Texture texture = aComponent.getTexture();
-		texture.setFilter(TextureFilter.Linear, TextureFilter.Linear);
-		batch.draw(texture, aComponent.getMyPosition().getXinPixels(), aComponent.getMyPosition().getYinPixels());
+	private void draw(VisualComponent aComponent) {
+		aComponent.draw(batch, font);
 	}
 	
 	@Override
