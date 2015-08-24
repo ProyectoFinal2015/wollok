@@ -8,7 +8,9 @@ import org.uqbar.project.wollok.game.GameConfiguration;
 import org.uqbar.project.wollok.game.GameFactory;
 import org.uqbar.project.wollok.game.Position;
 import org.uqbar.project.wollok.game.VisualComponent;
+import org.uqbar.project.wollok.game.listeners.ArrowListener;
 import org.uqbar.project.wollok.game.listeners.GameboardListener;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.google.common.base.Predicate;
@@ -18,16 +20,11 @@ public class Gameboard {
 
 	public static final int CELLZISE = 32;
 	private GameConfiguration configuration;
-	private float keyboardCounter;
-	private boolean marca;
 	private List<Cell> cells = new ArrayList<Cell>();
 	private VisualComponent character;
-	private List<GameboardListener> listeners = new ArrayList<GameboardListener>();
 	public List<VisualComponent> components = new ArrayList<VisualComponent>();
 
 	public Gameboard() {
-		marca = false;
-		keyboardCounter = 0;
 		GameFactory factory = new GameFactory();
 		factory.setGame(this);
 	}
@@ -54,23 +51,7 @@ public class Gameboard {
 	}
 
 	public boolean isKeyPressed(int key) {
-		if (!marca){
-			marca = Gdx.input.isKeyJustPressed(key);
-			this.keyboardCounter = 0;
-			}
-		else {
-			this.keyboardCounter += Gdx.graphics.getDeltaTime();
-			if (this.keyboardCounter > 0.39f) {
-				marca = Gdx.input.isKeyPressed(key);
-				if (marca)
-					this.keyboardCounter = 0;
-			}
-			else {
-				return false;
-			}
-		}
-			
-		return marca;
+		return Gdx.input.isKeyJustPressed(key);
 	}
 
 	public void addComponent(VisualComponent component) {
@@ -88,12 +69,10 @@ public class Gameboard {
 		return character;
 	}
 
-	public void setCharacter(VisualComponent character) {
+	public void addCharacter(VisualComponent character) {
 		this.character = character;
-	}
-	
-	public void setCharacterWollokObject(Object aCharacter) {
-		this.character.setMyDomainObject(aCharacter);
+		this.configuration.addListener(new ArrowListener(this));
+		this.addComponent(character);
 	}
 
 	public String getTittle() {

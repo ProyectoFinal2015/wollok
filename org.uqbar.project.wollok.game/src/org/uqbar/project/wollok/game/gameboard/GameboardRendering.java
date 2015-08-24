@@ -50,8 +50,6 @@ public class GameboardRendering implements ApplicationListener {
 			this.draw(component);
 		}
 		
-		this.draw(gameboard.getCharacter());
-		
 		batch.end();
 	}
 
