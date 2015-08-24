@@ -1,4 +1,3 @@
-Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Pluginprueba
 Bundle-SymbolicName: org.uqbar.project.wollok.game
