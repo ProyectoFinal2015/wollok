@@ -60,8 +60,8 @@ public class CollisionListenerTest {
 	
 	@Test
 	public void when_components_are_colliding_with_mario_then_block_is_called_with_each(){
-		aCoin.setMyPosition(mario.getMyPosition());
-		otherCoin.setMyPosition(mario.getMyPosition());
+		aCoin.setMyPosition(mario.getPosition());
+		otherCoin.setMyPosition(mario.getPosition());
 		
 		collisionListener.notify(gameboard);
 		verify(block).accept(aCoin);
@@ -70,7 +70,7 @@ public class CollisionListenerTest {
 	
 	@Test
 	public void when_components_are_colliding_but_anyone_is_mario_then_nothing_happens(){
-		aCoin.setMyPosition(otherCoin.getMyPosition());
+		aCoin.setMyPosition(otherCoin.getPosition());
 		
 		collisionListener.notify(gameboard);
 		verify(block, never()).accept(aCoin);

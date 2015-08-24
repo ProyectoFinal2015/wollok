@@ -58,8 +58,7 @@ public class Gameboard {
 		this.components.add(component);
 	}
 
-	public Collection<VisualComponent> getComponentsInPosition(
-			Position myPosition) {
+	public Collection<VisualComponent> getComponentsInPosition(Position myPosition) {
 		return Collections2.filter(components, new IsEqualPosition(myPosition));
 	}
 
@@ -119,7 +118,7 @@ public class Gameboard {
 
 		@Override
 		public boolean apply(VisualComponent it) {
-			return it.getMyPosition().equals(myPosition);
+			return it.getPosition().equals(myPosition);
 		}
 
 	}
