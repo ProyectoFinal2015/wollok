@@ -5,10 +5,7 @@ import java.util.List;
 import org.eclipse.xtend.lib.annotations.Accessors;
 import org.eclipse.xtext.xbase.lib.Pure;
 import org.uqbar.project.wollok.game.Component;
-import org.uqbar.project.wollok.game.Position;
-import org.uqbar.project.wollok.game.VisualComponent;
 import org.uqbar.project.wollok.game.gameboard.Gameboard;
-import org.uqbar.project.wollok.game.listeners.ArrowListener;
 import org.uqbar.project.wollok.game.listeners.GameboardListener;
 
 @Accessors
@@ -41,17 +38,6 @@ public class GameConfiguration {
   
   public void build(final Gameboard aBoard) {
     aBoard.createCells(this.imageGround);
-    if (this.arrowListener) {
-      ArrowListener _arrowListener = new ArrowListener(aBoard);
-      aBoard.addListener(_arrowListener);
-    }
-    VisualComponent _visualComponent = new VisualComponent();
-    aBoard.setCharacter(_visualComponent);
-    VisualComponent _character = aBoard.getCharacter();
-    Position _position = new Position(1, 1);
-    _character.setMyPosition(_position);
-    VisualComponent _character_1 = aBoard.getCharacter();
-    _character_1.setImage(this.imageCharacter);
   }
   
   public boolean addListener(final GameboardListener aListener) {

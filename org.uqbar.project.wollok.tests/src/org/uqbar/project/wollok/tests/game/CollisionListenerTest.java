@@ -1,27 +1,27 @@
-package org.uqbar.project.wollok.tests.game;
-
-import static org.mockito.Mockito.*;
-
-import java.util.Arrays;
-import java.util.function.Consumer;
-
-import org.junit.Before;
-import org.junit.Test;
-import org.uqbar.project.wollok.game.GameConfiguration;
-import org.uqbar.project.wollok.game.Position;
-import org.uqbar.project.wollok.game.VisualComponent;
-import org.uqbar.project.wollok.game.gameboard.Gameboard;
-import org.uqbar.project.wollok.game.listeners.CollisionListener;
-
-public class CollisionListenerTest {
-
-	private CollisionListener collisionListener;
-	private Gameboard gameboard;
-	private VisualComponent mario;
-	private VisualComponent aCoin;
-	private VisualComponent otherCoin;
-	private Consumer<VisualComponent> block;
-	
+//package org.uqbar.project.wollok.tests.game;
+//
+//import static org.mockito.Mockito.*;
+//
+//import java.util.Arrays;
+//import java.util.function.Consumer;
+//
+//import org.junit.Before;
+//import org.junit.Test;
+//import org.uqbar.project.wollok.game.GameConfiguration;
+//import org.uqbar.project.wollok.game.Position;
+//import org.uqbar.project.wollok.game.VisualComponent;
+//import org.uqbar.project.wollok.game.gameboard.Gameboard;
+//import org.uqbar.project.wollok.game.listeners.CollisionListener;
+//
+//public class CollisionListenerTest {
+//
+//	private CollisionListener collisionListener;
+//	private Gameboard gameboard;
+//	private VisualComponent mario;
+//	private VisualComponent aCoin;
+//	private VisualComponent otherCoin;
+//	private Consumer<VisualComponent> block;
+//	
 //	@SuppressWarnings("unchecked")
 //	@Before
 //	public void init() {
@@ -60,8 +60,8 @@ public class CollisionListenerTest {
 //	
 //	@Test
 //	public void when_components_are_colliding_with_mario_then_block_is_called_with_each(){
-//		aCoin.setMyPosition(mario.getMyPosition());
-//		otherCoin.setMyPosition(mario.getMyPosition());
+//		aCoin.setMyPosition(mario.getPosition());
+//		otherCoin.setMyPosition(mario.getPosition());
 //		
 //		collisionListener.notify(gameboard);
 //		verify(block).accept(aCoin);
@@ -70,10 +70,10 @@ public class CollisionListenerTest {
 //	
 //	@Test
 //	public void when_components_are_colliding_but_anyone_is_mario_then_nothing_happens(){
-//		aCoin.setMyPosition(otherCoin.getMyPosition());
+//		aCoin.setMyPosition(otherCoin.getPosition());
 //		
 //		collisionListener.notify(gameboard);
 //		verify(block, never()).accept(aCoin);
 //		verify(block, never()).accept(otherCoin);
 //	}
-}
+//}

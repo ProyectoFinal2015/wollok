@@ -11,14 +11,63 @@ import org.uqbar.project.wollok.interpreter.core.WollokObject
 import org.uqbar.project.wollok.game.VisualComponent
 import org.uqbar.project.wollok.interpreter.core.WollokClosure
 import org.uqbar.project.wollok.game.listeners.KeyboardListener
+import org.uqbar.project.wollok.game.listeners.CollisionListener
 
 class WgameObject extends AbstractWollokDeclarativeNativeObject {
 	
-	@NativeMessage("getGameboard")
-	def getGameboardMethod() {
-		Gameboard.getInstance()
+	@NativeMessage("addVisual")
+	def addVisualMethod(Object element) {		
+		var wollokObject = WollokObject.cast(element)
+		this.addComponent(new VisualComponent(wollokObject))
 	}
 	
+	@NativeMessage("addVisualCharacter")
+	def addVisualCharacterMethod(Object object) {
+		var wollokObject = WollokObject.cast(object)
+		this.addCharacter(new VisualComponent(wollokObject))
+	}
+	
+	@NativeMessage("addVisualWithReference")
+	def addVisualWithReferenceMethod(Object element, String property) {		
+		var wollokObject = WollokObject.cast(element)
+		this.addComponent(new VisualComponent(wollokObject, property))
+	}
+	
+	@NativeMessage("whenKeyPressedDo")
+	def whenKeyPressedDoMethod(Object key, WollokClosure action) {
+		var num = WollokInteger.cast(key).wrapped
+		var listener = new KeyboardListener(num, [ | action.apply() ])
+		Gameboard.getInstance().addListener(listener)
+	}
+
+	@NativeMessage("whenCollideDo")
+	def whenCollideDoMethod(Object object, WollokClosure action) {
+		var visualObject = Gameboard.getInstance().components.findFirst[ c | c.domainObject.equals(WollokObject.cast(object))]
+		var listener = new CollisionListener(visualObject, [ e | action.apply(e.domainObject) ])
+		Gameboard.getInstance().addListener(listener)
+	}
+	
+	@NativeMessage("getObjectsIn")
+	def getObjectsInMethod(WollokInteger posX, WollokInteger posY) {
+		var position = new Position(posX.wrapped, posY.wrapped)
+		var list = Gameboard.getInstance().getComponentsInPosition(position).map[it.domainObject as Object]
+		new WollokList(WollokInterpreter.getInstance, list)
+	}
+	
+	@NativeMessage("start")
+	def startMethod() {
+		Gameboard.getInstance().start()
+	}
+	
+	def addCharacter(VisualComponent component) {
+		Gameboard.getInstance().addCharacter(component)
+	}
+	
+	def addComponent(VisualComponent component) {
+		Gameboard.getInstance().addComponent(component)
+	}
+	
+	// accessors
 	@NativeMessage("setTittle")
 	def setTittleMethod(String title) {
 		Gameboard.getInstance().configuration.gameboardTitle = title
@@ -49,82 +98,4 @@ class WgameObject extends AbstractWollokDeclarativeNativeObject {
 		Gameboard.getInstance().cantCellY
 	}
 	
-	@NativeMessage("addCharacter")
-	def addCharacterMethod(Object object) {
-		var wollokObject = WollokObject.cast(object)
-		
-		var x = WollokInteger.cast(wollokObject.call("getX")).wrapped
-		var y = WollokInteger.cast(wollokObject.call("getY")).wrapped
-		var image = String.cast(wollokObject.call("getImagen"))
-		
-		var gamePosition = new Position(x, y)
-		var visualComponent = new VisualComponent(wollokObject, image, gamePosition)
-		
-		Gameboard.getInstance().character = visualComponent
-	}
-	
-	@NativeMessage("addObject")
-	def addObjectMethod(Object object) {
-		
-		var wollokObject = WollokObject.cast(object)
-		
-		var x = WollokInteger.cast(wollokObject.call("getX")).wrapped
-		var y = WollokInteger.cast(wollokObject.call("getY")).wrapped
-		
-		var gamePosition = new Position(x, y)
-		var visualComponent = new VisualComponent(wollokObject, "caja.png", gamePosition)
-		
-		Gameboard.getInstance().addComponent(visualComponent)
-	}
-	
-	@NativeMessage("agregarObjeto")
-	def agregarObjetoMethod(Object object) {
-		
-		var wollokObject = WollokObject.cast(object)
-		
-		var x = WollokInteger.cast(wollokObject.call("getX")).wrapped
-		var y = WollokInteger.cast(wollokObject.call("getY")).wrapped
-		var image = String.cast(wollokObject.call("getImagen"))
-		
-		var gamePosition = new Position(x, y)
-		var visualComponent = new VisualComponent(wollokObject, image, gamePosition)
-		
-		Gameboard.getInstance().addComponent(visualComponent)
-	}
-	
-	@NativeMessage("agregarPersonaje")
-	def agregarPersonajeMethod(Object object) {
-		
-		var wollokObject = WollokObject.cast(object)
-		
-		var x = WollokInteger.cast(wollokObject.call("getX")).wrapped
-		var y = WollokInteger.cast(wollokObject.call("getY")).wrapped
-		var image = String.cast(wollokObject.call("getImagen"))
-		
-		var gamePosition = new Position(x, y)
-		var visualComponent = new VisualComponent(wollokObject, image, gamePosition)
-		
-		Gameboard.getInstance().character = visualComponent
-	}
-	
-	@NativeMessage("addKeyboardListener")
-	def addKeyboardListenerMethod(WollokClosure action) {
-		var listener = new KeyboardListener(46, [| action.apply()])
-		Gameboard.getInstance().addListener(listener)
-	}
-	
-	
-	@NativeMessage("alPresionarHacer")
-	def alPresionarHacerMethod(Object key, WollokClosure action) {
-		var num = WollokInteger.cast(key).wrapped
-		var listener = new KeyboardListener(num, [| action.apply()])
-		Gameboard.getInstance().addListener(listener)
-	}
-	
-	@NativeMessage("getObjectsIn")
-	def getObjectsInMethod(WollokInteger posX, WollokInteger posY) {
-		var position = new Position(posX.wrapped, posY.wrapped)
-		var list = Gameboard.getInstance().getComponentsInPosition(position).map[it.myDomainObject]
-		new WollokList(WollokInterpreter.getInstance, list)
-	}
 }

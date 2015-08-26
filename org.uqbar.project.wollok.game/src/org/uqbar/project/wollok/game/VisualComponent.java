@@ -3,51 +3,52 @@ package org.uqbar.project.wollok.game;
 import org.uqbar.project.wollok.game.Position;
 import org.uqbar.project.wollok.interpreter.core.WollokObject;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class VisualComponent {
 
 	private Position position;
-	private String image;
-	// En realidad es un WollokObject pero lo debo tratar como object generalmente...WTF!
-	private Object domainObject;
-	private Texture texture;
+	private Image image;
+	private WollokObject domainObject;
+	private String attribute;
 	
-	public VisualComponent() { }
-	
-	public VisualComponent(WollokObject object, String image, Position position) {
+	public VisualComponent(WollokObject object) {
 		this.domainObject = object;
-		this.image = image;
-		this.position = position;
+		this.image = new WImage(object);
+		this.position = new WPosition(object);
 	}
 	
-	public Position getMyPosition() {
+	public VisualComponent(WollokObject object, String attr) {
+		this(object);
+		this.attribute = attr;
+	}
+	
+	public Position getPosition() {
 		return position;
 	}
-	public void setMyPosition(Position myPosition) {
-		this.position = myPosition;
+
+	public WollokObject getDomainObject() {
+		return this.domainObject;
 	}
-	public String getImage() {
-		return image;
-	}
-	public void setImage(String image) {
-		this.image = image;
-	}
-	public Object getMyDomainObject() {
-		return domainObject;
-	}
-	public void setMyDomainObject(Object myDomainObject) {
+	
+	public void setMyDomainObject(WollokObject myDomainObject) {
 		this.domainObject = myDomainObject;
 	}
 	
-	public Texture getTexture(){
-		if(this.texture == null)
-			return this.texture = new Texture(Gdx.files.internal(image));
-		return this.texture;
+	public Object sendMessage(String message) {
+		return this.domainObject.call(message);
 	}
-	
-	public void sendMessage(String message){
-		WollokObject.class.cast(this.domainObject).call(message);
+
+	public void draw(SpriteBatch batch, BitmapFont font) {
+		batch.draw(this.image.getTexture(), this.getPosition().getXinPixels(), this.getPosition().getYinPixels());
+
+		if (this.attribute != null)
+			font.draw(batch, this.getShowableAttribute(), this.getPosition().getXinPixels(), this.getPosition().getYinPixels());
+	}
+
+	private String getShowableAttribute() {
+		String objectProperty = this.domainObject.getInstanceVariables().get(this.attribute).toString();
+		return this.attribute + ":" + objectProperty;
 	}
 }

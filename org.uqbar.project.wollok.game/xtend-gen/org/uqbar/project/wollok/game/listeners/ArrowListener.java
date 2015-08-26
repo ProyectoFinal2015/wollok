@@ -18,32 +18,32 @@ public class ArrowListener implements GameboardListener {
     final Runnable _function = new Runnable() {
       public void run() {
         VisualComponent _character = aGameboard.getCharacter();
-        Position _myPosition = _character.getMyPosition();
-        _myPosition.incY(1);
+        Position _position = _character.getPosition();
+        _position.incY(1);
       }
     };
     this.diccionario.put(Integer.valueOf(Input.Keys.UP), _function);
     final Runnable _function_1 = new Runnable() {
       public void run() {
         VisualComponent _character = aGameboard.getCharacter();
-        Position _myPosition = _character.getMyPosition();
-        _myPosition.incY((-1));
+        Position _position = _character.getPosition();
+        _position.incY((-1));
       }
     };
     this.diccionario.put(Integer.valueOf(Input.Keys.DOWN), _function_1);
     final Runnable _function_2 = new Runnable() {
       public void run() {
         VisualComponent _character = aGameboard.getCharacter();
-        Position _myPosition = _character.getMyPosition();
-        _myPosition.incX((-1));
+        Position _position = _character.getPosition();
+        _position.incX((-1));
       }
     };
     this.diccionario.put(Integer.valueOf(Input.Keys.LEFT), _function_2);
     final Runnable _function_3 = new Runnable() {
       public void run() {
         VisualComponent _character = aGameboard.getCharacter();
-        Position _myPosition = _character.getMyPosition();
-        _myPosition.incX(1);
+        Position _position = _character.getPosition();
+        _position.incX(1);
       }
     };
     this.diccionario.put(Integer.valueOf(Input.Keys.RIGHT), _function_3);
