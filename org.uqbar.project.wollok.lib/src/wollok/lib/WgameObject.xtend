@@ -1,17 +1,17 @@
 package wollok.lib
 
+import org.uqbar.project.wollok.game.VisualComponent
+import org.uqbar.project.wollok.game.WPosition
+import org.uqbar.project.wollok.game.gameboard.Gameboard
+import org.uqbar.project.wollok.game.listeners.CollisionListener
+import org.uqbar.project.wollok.game.listeners.KeyboardListener
+import org.uqbar.project.wollok.interpreter.WollokInterpreter
+import org.uqbar.project.wollok.interpreter.core.WollokClosure
+import org.uqbar.project.wollok.interpreter.core.WollokObject
 import org.uqbar.project.wollok.interpreter.nativeobj.AbstractWollokDeclarativeNativeObject
 import org.uqbar.project.wollok.interpreter.nativeobj.NativeMessage
-import org.uqbar.project.wollok.game.gameboard.Gameboard
 import org.uqbar.project.wollok.interpreter.nativeobj.WollokInteger
-import org.uqbar.project.wollok.game.Position
 import org.uqbar.project.wollok.interpreter.nativeobj.collections.WollokList
-import org.uqbar.project.wollok.interpreter.WollokInterpreter
-import org.uqbar.project.wollok.interpreter.core.WollokObject
-import org.uqbar.project.wollok.game.VisualComponent
-import org.uqbar.project.wollok.interpreter.core.WollokClosure
-import org.uqbar.project.wollok.game.listeners.KeyboardListener
-import org.uqbar.project.wollok.game.listeners.CollisionListener
 
 class WgameObject extends AbstractWollokDeclarativeNativeObject {
 	
@@ -48,10 +48,16 @@ class WgameObject extends AbstractWollokDeclarativeNativeObject {
 	}
 	
 	@NativeMessage("getObjectsIn")
-	def getObjectsInMethod(WollokInteger posX, WollokInteger posY) {
-		var position = new Position(posX.wrapped, posY.wrapped)
-		var list = Gameboard.getInstance().getComponentsInPosition(position).map[it.domainObject as Object]
+	def getObjectsInMethod(Object position) {
+		var wollokObject = WollokObject.cast(position)
+		var wPosition = new WPosition(wollokObject)
+		var list = Gameboard.getInstance().getComponentsInPosition(wPosition).map[it.domainObject as Object]
 		new WollokList(WollokInterpreter.getInstance, list)
+	}
+	
+	@NativeMessage("clear")
+	def clearMethod() {
+		Gameboard.getInstance().clear()
 	}
 	
 	@NativeMessage("start")

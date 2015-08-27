@@ -68,7 +68,8 @@ object wgame{
 	method addVisualWithReference(element, property) native
 	method whenKeyPressedDo(key, action) native
 	method whenCollideDo(element, action) native
-	method getObjectsIn(posX, posY) native
+	method getObjectsIn(position) native
+	method clear() native
 	method start() native
 	
 	method setTittle(tittle) native
@@ -105,6 +106,10 @@ class Position {
 	
 	method clone() = new Position(x, y)
 	
+	method == (other) {
+		return x == other.getX() and y == other.getY()
+	}
+	
 	method getX() {
 		return x
 	}
@@ -123,7 +128,10 @@ class GameException extends wollok.lang.Exception {
 
 	var message
  
-	new(_message) {
+	new (_message) {
 		message = _message
 	}
-}}
+	
+	method getMessage() = message
+}
+}
