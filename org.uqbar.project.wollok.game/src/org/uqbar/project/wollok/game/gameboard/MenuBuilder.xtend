@@ -23,23 +23,20 @@ class MenuBuilder {
 	}
 	
 	def createMenu(){
-		
+		val alto = 50
+		val ancho = 50
 		stage.addActor(table);
-		table.setSize(100, 100);
-		table.setPosition(positionX, positionY);
+		table.setSize(ancho, alto);
+		table.setPosition(positionX, Gameboard.getInstance.height - positionY - alto);
 		// table.align(Align.right | Align.bottom);
 
-		table.debug();
+		//table.debug();
 
-//		var TextureRegion upRegion = skin.getRegion("default-slider-knob");
-//		var TextureRegion downRegion = skin.getRegion("default-slider-knob");
-//		var BitmapFont buttonFont = skin.getFont("default-font");
-
-		var TextButton button = new TextButton("Button 1", skin);
+		val TextButton button = new TextButton("Button 1", skin);
 		button.addListener(new InputListener() {
 			override boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
 				System.out.println("touchDown 1 del menú loco");
-				table = null;
+				table.remove
 				return false;
 			}
 		});

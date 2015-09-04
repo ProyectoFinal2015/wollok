@@ -13,7 +13,6 @@ import org.uqbar.project.wollok.game.listeners.GameboardListener;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
-import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.google.common.base.Predicate;
 import com.google.common.collect.Collections2;
 

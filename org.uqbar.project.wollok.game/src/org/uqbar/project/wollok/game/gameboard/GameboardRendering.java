@@ -30,14 +30,13 @@ public class GameboardRendering implements ApplicationListener {
 
 	@Override
 	public void create() {
-		this.skin = new Skin();
 		this.skin = new Skin(Gdx.files.internal("data/uiskin.json"));
 		this.stage = new Stage();
 		InputMultiplexer inputMultiplexer = new InputMultiplexer();		
-		inputMultiplexer.addProcessor(new GameboardInputProcessor(skin, stage));
 		inputMultiplexer.addProcessor(this.stage);
+		inputMultiplexer.addProcessor(new GameboardInputProcessor(skin, stage));
 		Gdx.input.setInputProcessor(inputMultiplexer);
-		//Gdx.input.setInputProcessor(new GameboardInputProcessor());
+//		Gdx.input.setInputProcessor(this.stage);
 		camera = new OrthographicCamera(0, 0);
 		camera.setToOrtho(false, gameboard.width(), gameboard.height());
 		batch = new SpriteBatch();
