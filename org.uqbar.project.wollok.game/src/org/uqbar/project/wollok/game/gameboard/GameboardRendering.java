@@ -12,6 +12,8 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.Texture.TextureFilter;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 
 public class GameboardRendering implements ApplicationListener {
 
@@ -19,7 +21,8 @@ public class GameboardRendering implements ApplicationListener {
 	private OrthographicCamera camera;
 	private SpriteBatch batch;
 	private BitmapFont font;
-	
+	private Skin skin;
+	private Stage stage;	
 	
 	public GameboardRendering(Gameboard gameboard) {
 		this.gameboard = gameboard;
@@ -27,11 +30,14 @@ public class GameboardRendering implements ApplicationListener {
 
 	@Override
 	public void create() {
-		//InputMultiplexer inputMultiplexer = new InputMultiplexer();		
-		//inputMultiplexer.addProcessor(new GameboardInputProcessor());
-		//inputMultiplexer.addProcessor(this.gameboard.getStage());
-		//Gdx.input.setInputProcessor(inputMultiplexer);
-		Gdx.input.setInputProcessor(new GameboardInputProcessor());
+		this.skin = new Skin();
+		this.skin = new Skin(Gdx.files.internal("data/uiskin.json"));
+		this.stage = new Stage();
+		InputMultiplexer inputMultiplexer = new InputMultiplexer();		
+		inputMultiplexer.addProcessor(new GameboardInputProcessor(skin, stage));
+		inputMultiplexer.addProcessor(this.stage);
+		Gdx.input.setInputProcessor(inputMultiplexer);
+		//Gdx.input.setInputProcessor(new GameboardInputProcessor());
 		camera = new OrthographicCamera(0, 0);
 		camera.setToOrtho(false, gameboard.width(), gameboard.height());
 		batch = new SpriteBatch();
@@ -58,11 +64,13 @@ public class GameboardRendering implements ApplicationListener {
 		}
 
 		batch.end();
+		stage.draw();
 	}
 
 	@Override
 	public void dispose() {
 		batch.dispose();
+		stage.dispose();
 	}
 
 	private void draw(Cell cell) {
