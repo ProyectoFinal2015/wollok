@@ -3,8 +3,9 @@ Bundle-ManifestVersion: 2
 Bundle-Name: %pluginName
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
-Bundle-Version: 1.0.0.qualifier
-Bundle-ClassPath: .
+Bundle-Version: 1.1.0.qualifier
+Bundle-ClassPath: .,
+ target/dependency/mockito-core-2.0.31-beta.jar
 Bundle-SymbolicName: org.uqbar.project.wollok.tests;singleton:=true
 Bundle-ActivationPolicy: lazy
 Require-Bundle: org.uqbar.project.wollok;visibility:=reexport,
@@ -18,14 +19,18 @@ Require-Bundle: org.uqbar.project.wollok;visibility:=reexport,
  org.eclipse.xtend.lib;bundle-version="[2.7.3,2.8.0)",
  org.uqbar.project.wollok.lib,
  org.uqbar.project.wollok.typeSystem.xsemantics,
- org.uqbar.project.wollok.ui
+ org.uqbar.project.wollok.ui,
+ org.uqbar.project.wollok.launch
 Import-Package: org.apache.log4j,
+ org.hamcrest.core,
  org.junit;version="4.5.0",
  org.junit.runner;version="4.5.0",
  org.junit.runner.manipulation;version="4.5.0",
  org.junit.runner.notification;version="4.5.0",
  org.junit.runners;version="4.5.0",
  org.junit.runners.model;version="4.5.0",
- org.hamcrest.core
+ org.uqbar.project.wollok.game,
+ org.uqbar.project.wollok.game.gameboard,
+ org.uqbar.project.wollok.game.listeners
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Export-Package: org.uqbar.project.wollok

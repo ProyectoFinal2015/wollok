@@ -94,7 +94,7 @@ class TypeSystemPreferencePage extends PropertyAndPreferencePage implements IWor
 	
 	protected def rebuild(IProgressMonitor monitor) {
 		if (projectPreferencePage)
-			WEclipseUtils.fullBuild(project,monitor)
+			fullBuild(project,monitor)
 		else
 			allProjects.filter[p| hasNature(p) ].forEach[p| fullBuild(p,monitor)]
 	}
