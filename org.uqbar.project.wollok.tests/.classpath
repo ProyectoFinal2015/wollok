@@ -5,5 +5,6 @@
 	<classpathentry kind="src" path="src/"/>
 	<classpathentry kind="src" path="src-gen/"/>
 	<classpathentry kind="src" path="xtend-gen/"/>
+	<classpathentry exported="true" kind="lib" path="target/dependency/mockito-core-2.0.31-beta.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

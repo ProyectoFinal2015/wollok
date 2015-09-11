@@ -2,7 +2,7 @@
 <feature
       id="org.uqbar.project.wollok.sdk"
       label="Wollok Language Feature"
-      version="1.0.0.qualifier"
+      version="1.1.0.qualifier"
       provider-name="Uqbar Foundation"
       os="linux,macosx,win32">
 
@@ -184,10 +184,14 @@ Library.
    </license>
 
    <url>
-      <update label="Wollok Update Site" url="http://update.uqbar.org/wollok/"/>
+      <update label="Wollok Update Site" url="http://update.uqbar.org/wollok/master"/>
       <discovery label="GitHub Repository" url="https://github.com/uqbar-project/wollok"/>
       <discovery label="Travis Continuous Integration Project" url="https://travis-ci.org/uqbar-project/wollok"/>
    </url>
+
+   <includes
+         id="org.eclipse.pde"
+         version="0.0.0"/>
 
    <requires>
       <import plugin="org.eclipse.xtext" version="2.7.3" match="greaterOrEqual"/>
@@ -204,7 +208,7 @@ Library.
       <import plugin="org.eclipse.jdt"/>
       <import plugin="org.eclipse.jdt.core" version="3.9.2" match="greaterOrEqual"/>
       <import plugin="org.apache.log4j"/>
-      <import plugin="org.uqbar.project.wollok" version="1.0.0" match="greaterOrEqual"/>
+      <import plugin="org.uqbar.project.wollok" version="1.1.0" match="greaterOrEqual"/>
       <import plugin="org.eclipse.ui.editors" version="3.5.0" match="greaterOrEqual"/>
       <import plugin="org.eclipse.ui.ide" version="3.5.0" match="greaterOrEqual"/>
       <import plugin="org.eclipse.xtext.ui.shared" version="2.7.3" match="greaterOrEqual"/>
@@ -248,35 +252,91 @@ Library.
          id="org.uqbar.project.wollok"
          download-size="0"
          install-size="0"
-         version="1.0.0.qualifier"
+         version="1.1.0.qualifier"
          unpack="false"/>
 
    <plugin
          id="org.uqbar.project.wollok.ui"
          download-size="0"
          install-size="0"
-         version="1.0.0.qualifier"
+         version="1.1.0.qualifier"
          unpack="false"/>
 
    <plugin
          id="org.uqbar.project.wollok.launch"
          download-size="0"
          install-size="0"
-         version="1.0.0.qualifier"
+         version="1.1.0.qualifier"
          unpack="false"/>
 
    <plugin
          id="org.uqbar.project.wollok.ui.diagrams"
          download-size="0"
          install-size="0"
-         version="1.0.0.qualifier"
+         version="1.1.0.qualifier"
          unpack="false"/>
 
    <plugin
          id="org.uqbar.project.wollok.ui.launch"
          download-size="0"
          install-size="0"
-         version="1.0.0.qualifier"
+         version="1.1.0.qualifier"
+         unpack="false"/>
+
+   <plugin
+         id="org.uqbar.project.wollok.lib"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.uqbar.project.wollok.product"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.tigris.subversion.clientadapter"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.tigris.subversion.clientadapter.javahl"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.tigris.subversion.subclipse.core"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.tigris.subversion.subclipse.doc"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.tigris.subversion.subclipse.tools.usage"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.tigris.subversion.subclipse.ui"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
          unpack="false"/>
 
 </feature>
