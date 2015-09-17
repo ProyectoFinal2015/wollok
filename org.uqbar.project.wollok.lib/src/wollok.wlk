@@ -115,8 +115,8 @@ class Position {
 	}
 	
 	method drawCharacterWithReferences(element, reference){
-		element.setPosicion(this.clone())
-		wgame.addVisualCharacterWithRefence(element, reference)
+		this.drawCharacter(element)
+		wgame.addVisualWithReference(element, reference)
 	}
 	
 	method drawCharacter(element){
@@ -125,7 +125,7 @@ class Position {
 	}
 	
 	method drawElementWithReferences(element, reference){
-		element.setPosicion(this.clone())
+		this.drawElement(element)
 		wgame.addVisualWithReference(element, reference)
 	}
 	
