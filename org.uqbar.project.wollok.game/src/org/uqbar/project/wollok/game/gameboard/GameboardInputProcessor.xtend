@@ -39,6 +39,10 @@ class GameboardInputProcessor implements InputProcessor {
 			var MenuBuilder aBuilder = new MenuBuilder(skin,stage);
 			aBuilder.positionX = x
 			aBuilder.positionY = y
+			for (var i=0;i< lista.size; i++){
+				aBuilder.addButton(lista.get(i).domainObject.toString)
+			}
+			aBuilder.addButton("")
 			aBuilder.createMenu
 		}
 		return true;

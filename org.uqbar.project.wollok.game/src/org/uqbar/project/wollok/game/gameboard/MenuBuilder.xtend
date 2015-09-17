@@ -7,6 +7,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin
 import com.badlogic.gdx.scenes.scene2d.ui.Table
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton
 import org.eclipse.xtend.lib.annotations.Accessors
+import com.badlogic.gdx.scenes.scene2d.ui.Label
 
 @Accessors
 class MenuBuilder {
@@ -20,29 +21,38 @@ class MenuBuilder {
 		this.stage = aStage
 		this.skin = aSkin
 		this.table = new Table();
+		table.add(new Label("Menu",this.skin))
 	}
+
 	
 	def createMenu(){
 		val alto = 50
 		val ancho = 50
+		
+		if (table.rows==0)
+			return;
 		stage.addActor(table);
 		table.setSize(ancho, alto);
 		table.setPosition(positionX, Gameboard.getInstance.height - positionY - alto);
-		// table.align(Align.right | Align.bottom);
-
 		//table.debug();
 
-		val TextButton button = new TextButton("Button 1", skin);
+	}
+	
+	def addButton(String caption){
+		if (caption == "")
+			return;
+		var name = caption.substring(0,caption.indexOf("["))
+		val TextButton button = new TextButton(name, skin);
 		button.addListener(new InputListener() {
 			override boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
-				System.out.println("touchDown 1 del menú loco");
+				System.out.println("touchDown en el botón " +  caption + " del menú loco");
 				table.remove
 				return false;
 			}
 		});
-		table.add(button);
-		// table.setTouchable(Touchable.disabled);
-
+		this.table.row();
+		this.table.add(button);
+		
 	}
 
 }
