@@ -61,7 +61,8 @@ public class GameboardRendering implements ApplicationListener {
 		for (VisualComponent component : gameboard.components) {
 			this.draw(component);
 		}
-
+		if (gameboard.getCharacter()!= null)
+			this.draw(gameboard.getCharacter());
 		batch.end();
 		stage.draw();
 	}
