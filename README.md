@@ -1,4 +1,4 @@
-[![Stories in Ready](https://badge.waffle.io/uqbar-project/wollok.png?label=ready&title=Ready)](https://waffle.io/ProyectoFinal2015/wollok)
+[![Stories in Ready](https://badge.waffle.io/ProyectoFinal2015/wollok.svg?label=ready&title=Ready)](http://waffle.io/ProyectoFinal2015/wollok)
 
 # Wollok-Game #
 
