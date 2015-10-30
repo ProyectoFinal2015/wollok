@@ -23,11 +23,7 @@ public class GameboardRendering implements ApplicationListener {
 	}
 
 	@Override
-	public void create() {
-		//InputMultiplexer inputMultiplexer = new InputMultiplexer();		
-		//inputMultiplexer.addProcessor(new GameboardInputProcessor());
-		//inputMultiplexer.addProcessor(this.gameboard.getStage());
-		//Gdx.input.setInputProcessor(inputMultiplexer);
+	public void create() {;
 		Gdx.input.setInputProcessor(new GameboardInputProcessor());
 		camera = new OrthographicCamera(0, 0);
 		camera.setToOrtho(false, gameboard.width(), gameboard.height());
@@ -42,13 +38,8 @@ public class GameboardRendering implements ApplicationListener {
 		batch.setProjectionMatrix(camera.combined);
 		batch.begin();
 
-		/*for (GameboardListener listener : gameboard.getListeners()) {
-			listener.notify(gameboard);
-		}
-		NO UTILIZAR FOREACH PORQUE HAY UN PROBLEMA DE CONCURRENCIA 
-		AL MOMENTO DE ELIMINAR VALORES DE LA LISTA
-		 */
-		for (int i=0;i<  gameboard.getListeners().size(); i++){
+		// NO UTILIZAR FOREACH PORQUE HAY UN PROBLEMA DE CONCURRENCIA AL MOMENTO DE VACIAR LA LISTA
+		for (int i=0; i < gameboard.getListeners().size(); i++){
 			gameboard.getListeners().get(i).notify(gameboard);
 		}
 
@@ -59,8 +50,10 @@ public class GameboardRendering implements ApplicationListener {
 		for (VisualComponent component : gameboard.components) {
 			this.draw(component);
 		}
+		
 		if (gameboard.getCharacter()!= null)
 			this.draw(gameboard.getCharacter());
+		
 		batch.end();
 	}
 
