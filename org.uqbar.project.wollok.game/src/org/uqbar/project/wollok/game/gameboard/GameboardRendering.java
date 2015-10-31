@@ -2,8 +2,6 @@ package org.uqbar.project.wollok.game.gameboard;
 
 import org.uqbar.project.wollok.game.Balloon;
 import org.uqbar.project.wollok.game.VisualComponent;
-import org.uqbar.project.wollok.game.listeners.GameboardListener;
-
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
@@ -27,11 +25,7 @@ public class GameboardRendering implements ApplicationListener {
 	}
 
 	@Override
-	public void create() {
-		//InputMultiplexer inputMultiplexer = new InputMultiplexer();		
-		//inputMultiplexer.addProcessor(new GameboardInputProcessor());
-		//inputMultiplexer.addProcessor(this.gameboard.getStage());
-		//Gdx.input.setInputProcessor(inputMultiplexer);
+	public void create() {;
 		Gdx.input.setInputProcessor(new GameboardInputProcessor());
 		camera = new OrthographicCamera(0, 0);
 		camera.setToOrtho(false, gameboard.width(), gameboard.height());
@@ -47,8 +41,9 @@ public class GameboardRendering implements ApplicationListener {
 		batch.setProjectionMatrix(camera.combined);
 		batch.begin();
 
-		for (GameboardListener listener : gameboard.getListeners()) {
-			listener.notify(gameboard);
+		// NO UTILIZAR FOREACH PORQUE HAY UN PROBLEMA DE CONCURRENCIA AL MOMENTO DE VACIAR LA LISTA
+		for (int i=0; i < gameboard.getListeners().size(); i++){
+			gameboard.getListeners().get(i).notify(gameboard);
 		}
 
 		for (Cell cell : gameboard.getCells()) {
