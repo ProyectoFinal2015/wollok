@@ -67,6 +67,7 @@ object wgame{
 	method addVisualCharacter(element) native
 	method addVisualWithReference(element, property) native
 	method whenKeyPressedDo(key, action) native
+	method whenKeyPressedSay(key, function) native
 	method whenCollideDo(element, action) native
 	method getObjectsIn(position) native
 	method clear() native
@@ -94,7 +95,10 @@ class ProtoKeyListener {
 	new(_key) {
 		key = _key
 	}
-	
+
+	method characterSay(function){
+		wgame.whenKeyPressedSay(key, function)
+	}	
 	method do(action) {
 		wgame.whenKeyPressedDo(key, action)
 	}

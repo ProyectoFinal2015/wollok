@@ -58,9 +58,9 @@ public class GameboardRendering implements ApplicationListener {
 		for (VisualComponent component : gameboard.components) {
 			this.draw(component);
 		}
-		if (gameboard.getCharacter()!= null){
+		if (gameboard.getCharacter()!= null && gameboard.hasMessages()){
 			this.draw(gameboard.getCharacter());
-			balloon.draw(batch,"poasdfposopadf pop  posadfpspdaof poasdfp posadfpoasdpfapsdf");
+			balloon.draw(batch,gameboard.getCurrentMessage());
 		}
 		
 		
