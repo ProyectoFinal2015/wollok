@@ -1,5 +1,5 @@
 Bundle-ManifestVersion: 2
-Bundle-Name: Pluginprueba
+Bundle-Name: Wollok Game
 Bundle-SymbolicName: org.uqbar.project.wollok.game
 Bundle-Version: 1.1.0.qualifier
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
@@ -30,3 +30,4 @@ Export-Package: .,
  org.uqbar.project.wollok.game,
  org.uqbar.project.wollok.game.gameboard,
  org.uqbar.project.wollok.game.listeners
+Bundle-Vendor: Uqbar Project
