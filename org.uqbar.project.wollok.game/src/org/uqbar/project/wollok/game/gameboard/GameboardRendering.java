@@ -1,5 +1,6 @@
 package org.uqbar.project.wollok.game.gameboard;
 
+import org.uqbar.project.wollok.game.Balloon;
 import org.uqbar.project.wollok.game.VisualComponent;
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
@@ -16,6 +17,7 @@ public class GameboardRendering implements ApplicationListener {
 	private OrthographicCamera camera;
 	private SpriteBatch batch;
 	private BitmapFont font;
+	private Balloon balloon;
 	
 	
 	public GameboardRendering(Gameboard gameboard) {
@@ -29,6 +31,7 @@ public class GameboardRendering implements ApplicationListener {
 		camera.setToOrtho(false, gameboard.width(), gameboard.height());
 		batch = new SpriteBatch();
 		font = new BitmapFont();
+		balloon = new Balloon();
 	}
 
 	@Override
@@ -50,6 +53,9 @@ public class GameboardRendering implements ApplicationListener {
 		for (VisualComponent component : gameboard.getComponents()) {
 			this.draw(component);
 		}
+
+		if (gameboard.hasMessages())
+			balloon.draw(batch,gameboard.getCurrentMessage());
 		
 		batch.end();
 	}
