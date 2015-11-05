@@ -173,7 +173,7 @@ class Position {
 	}
 }
 
-class GameException extends wollok.lang.Exception {
+class GameException extends Exception {
 
 	var message
  
