@@ -66,6 +66,7 @@ object wgame{
 	method addVisual(element) native
 	method addVisualCharacter(element) native
 	method addVisualWithReference(element, property) native
+	method addVisualCharacterWithReference(element, property) native
 	method whenKeyPressedDo(key, action) native
 	method whenKeyPressedSay(key, function) native
 	method whenCollideDo(element, action) native
@@ -135,8 +136,8 @@ class Position {
 	}
 	
 	method drawCharacterWithReferences(element, reference) {
-		this.drawCharacter(element)
-		wgame.addVisualWithReference(element, reference)
+		element.setPosicion(this.clone())
+		wgame.addVisualCharacterWithReference(element, reference)
 	}
 	
 	method drawCharacter(element) {
@@ -145,7 +146,7 @@ class Position {
 	}
 	
 	method drawElementWithReferences(element, reference) {
-		this.drawElement(element)
+		element.setPosicion(this.clone())
 		wgame.addVisualWithReference(element, reference)
 	}
 	

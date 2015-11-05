@@ -56,22 +56,27 @@ public class Gameboard {
 	public boolean isKeyPressed(int key) {
 		return Gdx.input.isKeyJustPressed(key);
 	}
-
-	public void addComponent(VisualComponent component) {
-		this.components.add(component);
+	
+	public void clear() {
+		this.components.clear();
+		this.configuration.getListeners().clear();
 	}
 
+	// Getters & Setters
+	
 	public Collection<VisualComponent> getComponentsInPosition(Position myPosition) {
 		return Collections2.filter(components, new IsEqualPosition(myPosition));
 	}
-
+	
 	public Collection<VisualComponent> getComponentsInPosition(int xInPixels, int yInPixels) {
 		yInPixels = Gameboard.getInstance().height() - yInPixels;
 		return Collections2.filter(components, new IsEqualPosition(xInPixels,yInPixels));
 	}
-	
-	// Getters & Setters
 
+	public void addComponent(VisualComponent component) {
+		this.components.add(component);
+	}
+	
 	public VisualComponent getCharacter() {
 		return character;
 	}
@@ -94,25 +99,29 @@ public class Gameboard {
 	}
 
 	public List<VisualComponent> getComponents() {
-		return this.components;
+		ArrayList<VisualComponent> allComponents = new ArrayList<VisualComponent>(this.components);
+		allComponents.add(this.character);
+		return allComponents;
 	}
 
-	public void serListeners(List<GameboardListener> aList){
-		this.configuration.setListeners(aList);
-	}
 	public void addListener(GameboardListener aListener){
 		this.configuration.getListeners().add(aListener);
 	}
-	public void setComponents(List<VisualComponent> components) {
-		this.components = components;
-	}
-
+	
 	public int getCantCellX() {
 		return configuration.getGameboardWidth();
 	}
 
 	public int getCantCellY() {
 		return configuration.getGameboardHeight();
+	}
+	
+	public GameConfiguration getConfiguration() {
+		return configuration;
+	}
+	
+	public void setConfiguration(GameConfiguration configuration) {
+		this.configuration = configuration;
 	}
 
 	private class IsEqualPosition implements Predicate<VisualComponent> {
@@ -143,19 +152,6 @@ public class Gameboard {
 		if (instance == null)
 			instance = new Gameboard();
 		return instance;
-	}
-
-	public GameConfiguration getConfiguration() {
-		return configuration;
-	}
-
-	public void setConfiguration(GameConfiguration configuration) {
-		this.configuration = configuration;
-	}
-
-	public void clear() {
-		this.components.clear();
-		this.configuration.getListeners().clear();
 	}
 
 	public void characterSay(String aText) {
