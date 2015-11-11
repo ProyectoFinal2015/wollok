@@ -2,6 +2,7 @@ package org.uqbar.project.wollok.game;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 import org.uqbar.project.wollok.game.Position;
 import org.uqbar.project.wollok.game.gameboard.Gameboard;
@@ -9,6 +10,7 @@ import org.uqbar.project.wollok.interpreter.core.ToStringBuilder;
 import org.uqbar.project.wollok.interpreter.core.WollokObject;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
@@ -17,6 +19,7 @@ public class VisualComponent {
 	private Image image;
 	private WollokObject domainObject;
 	private Collection<String> attributes = new ArrayList<String>();
+	private List<BalloonMessage> balloonMessages = new ArrayList<BalloonMessage>();
 	
 	public VisualComponent(WollokObject object) {
 		this.domainObject = object;
@@ -50,10 +53,27 @@ public class VisualComponent {
 	public Object sendMessage(String message) {
 		return this.domainObject.call(message);
 	}
+	
+	public void say(String aText) {
+		this.balloonMessages.add(new BalloonMessage(aText, Color.BLACK));
+	}
+	
+	public void scream(String aText) {
+		this.balloonMessages.add(new BalloonMessage(aText, Color.RED));
+	}
 
 	public void draw(SpriteBatch batch, BitmapFont font) {
-		batch.draw(this.image.getTexture(), this.getPosition().getXinPixels(), this.getPosition().getYinPixels());
+		this.drawMe(batch);
+		this.drawAttributesIfNecesary(batch, font);
+		this.drawBallonIfNecesary(batch);
+	}
 
+	private void drawBallonIfNecesary(SpriteBatch batch) {
+		if (this.hasMessages())
+			this.getCurrentMessage().draw(batch, this);
+	}
+
+	private void drawAttributesIfNecesary(SpriteBatch batch, BitmapFont font) {
 		String printableString = "";
 		
 		for(String attr : this.attributes){
@@ -62,6 +82,10 @@ public class VisualComponent {
 		
 		if (printableString != "" && this.isInMyZone())
 			font.draw(batch, printableString, this.getPosition().getXinPixels(), this.getPosition().getYinPixels());
+	}
+
+	private void drawMe(SpriteBatch batch) {
+		batch.draw(this.image.getTexture(), this.getPosition().getXinPixels(), this.getPosition().getYinPixels());
 	}
 
 	private boolean isInMyZone(){
@@ -78,5 +102,20 @@ public class VisualComponent {
 		Object value = this.domainObject.getInstanceVariables().get(attr);
 		
 		return attr + ":" + new ToStringBuilder().smartToString(value);
+	}
+	
+
+	public boolean hasMessages() {
+		List<BalloonMessage> textToDelete = new ArrayList<BalloonMessage>();
+		for(int i = 0; i<this.balloonMessages.size();i++){
+			if (this.balloonMessages.get(i).shouldRemove())
+				textToDelete.add(balloonMessages.get(i));
+		}
+		this.balloonMessages.removeAll(textToDelete);
+		return this.balloonMessages.size() > 0;
+	}
+
+	public BalloonMessage getCurrentMessage() {
+		return this.balloonMessages.get(0);
 	}
 }

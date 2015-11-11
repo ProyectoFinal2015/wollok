@@ -1,7 +1,8 @@
 package org.uqbar.project.wollok.game.gameboard;
 
-import org.uqbar.project.wollok.game.Balloon;
 import org.uqbar.project.wollok.game.VisualComponent;
+import org.uqbar.project.wollok.interpreter.core.WollokProgramExceptionWrapper;
+
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
@@ -17,7 +18,6 @@ public class GameboardRendering implements ApplicationListener {
 	private OrthographicCamera camera;
 	private SpriteBatch batch;
 	private BitmapFont font;
-	private Balloon balloon;
 	
 	
 	public GameboardRendering(Gameboard gameboard) {
@@ -31,7 +31,6 @@ public class GameboardRendering implements ApplicationListener {
 		camera.setToOrtho(false, gameboard.width(), gameboard.height());
 		batch = new SpriteBatch();
 		font = new BitmapFont();
-		balloon = new Balloon();
 	}
 
 	@Override
@@ -43,7 +42,22 @@ public class GameboardRendering implements ApplicationListener {
 
 		// NO UTILIZAR FOREACH PORQUE HAY UN PROBLEMA DE CONCURRENCIA AL MOMENTO DE VACIAR LA LISTA
 		for (int i=0; i < gameboard.getListeners().size(); i++){
-			gameboard.getListeners().get(i).notify(gameboard);
+			try {
+				gameboard.getListeners().get(i).notify(gameboard);
+			} 
+			catch (WollokProgramExceptionWrapper e) {
+				Object message = e.getWollokException().getInstanceVariables().get("message");
+				if (message == null)
+					message = "NO MESSAGE";
+				
+				VisualComponent character = gameboard.getCharacter();
+				if (character != null)
+					character.scream("ERROR: " + message.toString());
+			} 
+//			catch (WollokInterpreterException e) { 
+//				gameboard.characterSay(e.getCause().getCause().getMessage()); 
+//			}
+
 		}
 
 		for (Cell cell : gameboard.getCells()) {
@@ -54,9 +68,6 @@ public class GameboardRendering implements ApplicationListener {
 			this.draw(component);
 		}
 
-		if (gameboard.hasMessages())
-			balloon.draw(batch,gameboard.getCurrentMessage());
-		
 		batch.end();
 	}
 
