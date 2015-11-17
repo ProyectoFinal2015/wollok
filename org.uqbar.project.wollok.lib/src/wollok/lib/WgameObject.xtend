@@ -13,7 +13,6 @@ import org.uqbar.project.wollok.interpreter.nativeobj.NativeMessage
 import org.uqbar.project.wollok.interpreter.nativeobj.WollokInteger
 import org.uqbar.project.wollok.interpreter.nativeobj.collections.WollokList
 import org.uqbar.project.wollok.game.listeners.CharacterSayListener
-import org.uqbar.project.wollok.interpreter.nativeobj.collections.WollokSet
 
 class WgameObject extends AbstractWollokDeclarativeNativeObject {
 	
