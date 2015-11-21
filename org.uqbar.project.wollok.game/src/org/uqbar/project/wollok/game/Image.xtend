@@ -42,6 +42,6 @@ class WImage extends Image {
 	}
 	
 	override getPath() { 
-		String.cast(this.object.call("getImagen"))
+		this.object.call("getImagen") as String
 	}
 }
