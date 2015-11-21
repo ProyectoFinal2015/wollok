@@ -1,26 +1,19 @@
 package org.uqbar.project.wollok.game.gameboard
 
-import org.eclipse.xtend.lib.annotations.Accessors
-import com.badlogic.gdx.graphics.Texture
-import com.badlogic.gdx.Gdx
+import org.uqbar.project.wollok.game.Image
 
-@Accessors
 class Cell {
-	var int width;
-	var int height;
-	var String element;
-	var Texture texture;
+	var int width
+	var int height
+	var Image image
 
-	new (int widthSize,int heghtSize, String groundImage) {
-		this.width = widthSize;
-		this.height = heghtSize;
-		this.element = groundImage;
+	new (int widthSize, int heghtSize, String image) {
+		this.width = widthSize
+		this.height = heghtSize
+		this.image = new Image(image)
 	}
 	
-	
-	def Texture getTexture(){
-		if (this.texture == null)
-			return this.texture = new Texture(Gdx.files.internal(this.element))
-		return this.texture
-	}
+	def draw(Window window) {
+		window.drawIn(image, width, height)
+	}	
 }
